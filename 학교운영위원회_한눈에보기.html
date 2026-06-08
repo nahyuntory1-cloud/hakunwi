@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>학교운영위원회 한눈에 보기 | 2026</title>
+<style>
+  :root {
+    --pink:    #f9d6e0;
+    --peach:   #fde8d3;
+    --yellow:  #fdf6d3;
+    --mint:    #d3f0e8;
+    --blue:    #d3e8f9;
+    --purple:  #e8d3f9;
+    --gray:    #f5f5f7;
+    --text:    #3a3a4a;
+    --sub:     #6b6b80;
+    --border:  #e0dfe8;
+    --white:   #ffffff;
+    --shadow:  rgba(80,60,120,0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', '맑은 고딕', sans-serif;
+    background: linear-gradient(135deg, #fdf6ff 0%, #f0f6ff 50%, #f0fff8 100%);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: linear-gradient(120deg, #f9d6f0 0%, #d6e8f9 100%);
+    padding: 28px 32px 20px;
+    text-align: center;
+    border-bottom: 2px solid var(--border);
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 2px 12px var(--shadow);
+  }
+  .header h1 { font-size: 1.55rem; font-weight: 700; color: #5a3a7a; letter-spacing: -0.5px; }
+  .header p  { font-size: 0.82rem; color: var(--sub); margin-top: 4px; }
+  .badge {
+    display: inline-block; background: #c8a8e8; color: #fff;
+    font-size: 0.72rem; font-weight: 600; padding: 2px 10px;
+    border-radius: 20px; margin-left: 8px; vertical-align: middle;
+  }
+
+  /* ── Tab Bar ── */
+  .tab-bar {
+    display: flex; overflow-x: auto; background: #fff;
+    border-bottom: 2px solid var(--border);
+    padding: 0 16px; gap: 4px;
+    scrollbar-width: none;
+  }
+  .tab-bar::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    flex: 0 0 auto;
+    padding: 12px 20px; font-size: 0.88rem; font-weight: 600;
+    border: none; background: transparent; cursor: pointer;
+    color: var(--sub); border-bottom: 3px solid transparent;
+    transition: all .2s; white-space: nowrap;
+  }
+  .tab-btn.active { color: #7a4aaa; border-bottom-color: #b07ae0; }
+  .tab-btn:hover  { color: #7a4aaa; background: #f8f0ff; border-radius: 8px 8px 0 0; }
+  .tab-btn .icon  { margin-right: 5px; }
+
+  /* ── Content area ── */
+  .tab-content { display: none; padding: 24px 20px 48px; max-width: 900px; margin: 0 auto; }
+  .tab-content.active { display: block; }
+
+  /* ── Section card ── */
+  .section-card {
+    background: #fff;
+    border-radius: 16px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 10px var(--shadow);
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .section-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 20px; cursor: pointer;
+    transition: background .15s;
+    user-select: none;
+  }
+  .section-header:hover { background: #faf7ff; }
+  .section-header h3 { font-size: 0.97rem; font-weight: 700; color: #4a3060; display: flex; align-items: center; gap: 10px; }
+  .section-icon { font-size: 1.2rem; }
+  .section-arrow { font-size: 0.85rem; color: #b07ae0; transition: transform .25s; }
+  .section-arrow.open { transform: rotate(180deg); }
+
+  .section-body {
+    display: none; padding: 0 20px 20px;
+    border-top: 1px solid #f0eaf8;
+    animation: fadeIn .2s ease;
+  }
+  .section-body.open { display: block; }
+
+  @keyframes fadeIn { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:none; } }
+
+  /* ── Info blocks ── */
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; }
+  @media(max-width:560px) { .info-grid { grid-template-columns: 1fr; } }
+
+  .info-box {
+    padding: 14px 16px; border-radius: 12px;
+    font-size: 0.87rem; line-height: 1.65;
+  }
+  .info-box h4 { font-size: 0.82rem; font-weight: 700; margin-bottom: 6px; opacity: .85; }
+  .info-box.pink   { background: var(--pink); }
+  .info-box.peach  { background: var(--peach); }
+  .info-box.mint   { background: var(--mint); }
+  .info-box.blue   { background: var(--blue); }
+  .info-box.yellow { background: var(--yellow); }
+  .info-box.purple { background: var(--purple); }
+  .info-box.gray   { background: var(--gray); }
+
+  .tag {
+    display: inline-block; font-size: 0.72rem; font-weight: 700;
+    padding: 2px 9px; border-radius: 20px; margin-right: 5px; margin-bottom: 4px;
+  }
+  .tag.pink   { background: #f9b8ce; color: #7a1a3a; }
+  .tag.mint   { background: #a8e8d0; color: #1a5a3a; }
+  .tag.blue   { background: #a8cce8; color: #1a3a6a; }
+  .tag.yellow { background: #f0e088; color: #6a5a10; }
+  .tag.purple { background: #c8a8e8; color: #4a1a7a; }
+  .tag.peach  { background: #f8c8a0; color: #7a3a10; }
+
+  .list-item {
+    display: flex; align-items: flex-start; gap: 8px;
+    padding: 7px 0; border-bottom: 1px solid #f0eaf8; font-size: 0.87rem; line-height: 1.6;
+  }
+  .list-item:last-child { border-bottom: none; }
+  .list-item .dot { flex-shrink: 0; width: 7px; height: 7px; border-radius: 50%; background: #c8a8e8; margin-top: 8px; }
+
+  .highlight-box {
+    background: linear-gradient(120deg, #fde8f8, #e8d8f8);
+    border-left: 4px solid #c8a8e8;
+    padding: 12px 16px; border-radius: 0 12px 12px 0;
+    margin: 12px 0; font-size: 0.87rem; line-height: 1.7;
+  }
+  .highlight-box.mint  { background: linear-gradient(120deg, #e0f8f0, #d0eee8); border-color: #7acab0; }
+  .highlight-box.blue  { background: linear-gradient(120deg, #e0eef8, #d0e4f0); border-color: #7aaed0; }
+  .highlight-box.peach { background: linear-gradient(120deg, #fef0e4, #fde4d0); border-color: #f0a070; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 12px; }
+  th { background: #ede0f8; color: #4a1a6a; padding: 9px 12px; text-align: left; font-weight: 700; }
+  td { padding: 9px 12px; border-bottom: 1px solid #f0eaf8; line-height: 1.6; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #faf7ff; }
+
+  .step-flow {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; align-items: center;
+  }
+  .step-box {
+    background: linear-gradient(135deg, #f0e8ff, #ffe8f8);
+    border: 1px solid #d8c0f0;
+    border-radius: 10px; padding: 10px 14px; font-size: 0.83rem;
+    font-weight: 600; color: #4a2060; text-align: center; min-width: 90px;
+  }
+  .step-arrow { color: #b07ae0; font-size: 1.1rem; flex-shrink: 0; }
+
+  /* ── 자동완성 서식 ── */
+  .form-section {
+    background: #fff; border-radius: 16px; box-shadow: 0 2px 10px var(--shadow);
+    padding: 24px; border: 1px solid var(--border); margin-bottom: 16px;
+  }
+  .form-section h3 { font-size: 1rem; font-weight: 700; color: #4a3060; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+
+  .form-row { margin-bottom: 13px; }
+  .form-label { font-size: 0.82rem; font-weight: 600; color: var(--sub); margin-bottom: 5px; display: block; }
+  textarea.form-input { resize: vertical; min-height: 70px; }
+  .form-input, .form-select {
+    width: 100%; padding: 9px 13px; border: 1.5px solid var(--border);
+    border-radius: 9px; font-size: 0.9rem; color: var(--text);
+    background: #faf8ff; font-family: inherit;
+    transition: border-color .15s;
+    outline: none;
+  }
+  .form-input:focus, .form-select:focus { border-color: #b07ae0; background: #fff; }
+
+  .form-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media(max-width:480px) { .form-2col { grid-template-columns: 1fr; } }
+
+  .btn-generate {
+    width: 100%; padding: 14px;
+    background: linear-gradient(120deg, #c890e8, #90b8e8);
+    color: #fff; font-size: 1rem; font-weight: 700;
+    border: none; border-radius: 12px; cursor: pointer;
+    margin-top: 8px; letter-spacing: 0.3px;
+    transition: opacity .2s, transform .1s;
+  }
+  .btn-generate:hover { opacity: 0.9; transform: translateY(-1px); }
+  .btn-generate:active { transform: translateY(0); }
+
+  .output-box {
+    background: #faf7ff; border: 1.5px solid #d8c0f0;
+    border-radius: 12px; padding: 20px;
+    font-size: 0.87rem; line-height: 1.85;
+    white-space: pre-wrap; font-family: 'Malgun Gothic', sans-serif;
+    margin-top: 16px; display: none;
+    position: relative;
+  }
+  .output-box.visible { display: block; }
+
+  .btn-copy {
+    position: absolute; top: 12px; right: 12px;
+    padding: 6px 14px; background: #c8a8e8; color: #fff;
+    border: none; border-radius: 8px; font-size: 0.78rem; cursor: pointer;
+    font-weight: 600;
+  }
+  .btn-copy:hover { background: #b090d0; }
+
+  .form-tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+  .form-tab-btn {
+    padding: 8px 16px; border-radius: 20px; border: 1.5px solid #d0c0e8;
+    background: #fff; color: var(--sub); font-size: 0.83rem; font-weight: 600;
+    cursor: pointer; transition: all .15s;
+  }
+  .form-tab-btn.active { background: #c8a8e8; color: #fff; border-color: #c8a8e8; }
+
+  .form-panel { display: none; }
+  .form-panel.active { display: block; }
+
+  /* ── Timeline ── */
+  .timeline { margin-top: 14px; }
+  .timeline-item { display: flex; gap: 14px; margin-bottom: 16px; }
+  .timeline-dot-col { display: flex; flex-direction: column; align-items: center; }
+  .t-dot { width: 12px; height: 12px; border-radius: 50%; background: #c8a8e8; flex-shrink: 0; margin-top: 4px; }
+  .t-line { width: 2px; flex: 1; background: #e8d8f8; margin-top: 4px; }
+  .t-content { flex: 1; padding-bottom: 4px; }
+  .t-date { font-size: 0.78rem; font-weight: 700; color: #9070b8; margin-bottom: 3px; }
+  .t-desc { font-size: 0.87rem; line-height: 1.6; color: var(--text); }
+
+  /* ── Notice box ── */
+  .notice {
+    background: #fff9e8; border: 1.5px solid #f0d870; border-radius: 10px;
+    padding: 11px 15px; font-size: 0.83rem; color: #6a5010; margin-top: 12px;
+    line-height: 1.6;
+  }
+  .notice::before { content: '⚠️ '; }
+
+  .success-notice {
+    background: #e8f8f0; border: 1.5px solid #80d0a8; border-radius: 10px;
+    padding: 11px 15px; font-size: 0.83rem; color: #1a6040; margin-top: 12px;
+    line-height: 1.6;
+  }
+  .success-notice::before { content: '✅ '; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🏫 학교운영위원회 한눈에 보기 <span class="badge">2026</span></h1>
+  <p>경기도 학교운영위원회 운영 가이드</p>
+</div>
+
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="showTab('overview')"   ><span class="icon">📖</span>개요</button>
+  <button class="tab-btn"        onclick="showTab('composition')"><span class="icon">👥</span>구성 &amp; 선출</button>
+  <button class="tab-btn"        onclick="showTab('operation')"  ><span class="icon">⚙️</span>운영 &amp; 회의</button>
+  <button class="tab-btn"        onclick="showTab('forms')"      ><span class="icon">✍️</span>자동완성 서식</button>
+</div>
+
+
+<!-- ═══════════════ TAB 1: 개요 ═══════════════ -->
+<div id="tab-overview" class="tab-content active">
+
+  <div class="section-card">
+    <div class="section-header" onclick="toggle(this)">
+      <h3><span class="section-icon">💡</span>학교운영위원회란?</h3>
+      <span class="section-arrow open">▼</span>
+    </div>
+    <div class="section-body open">
+      <div class="highlight-box">
+        학교운영위원회(학운위)는 학부모·교원·지역인사가 함께 학교운영에 대해 <strong>심의</strong>하는 법적기구로서, 단위학교 차원의 <strong>교육자치기구</strong>입니다.
+        모든 국·공·사립의 초·중·고등학교, 특수학교, 각종학교에 설치·운영합니다.
+      </div>
+      <div class="info-grid">
+        <div class="info-box pink">
+          <h4>🏛️ 법적 성격</h4>
+          • 법정 위원회 (초·중등교육법 근거)<br>
+          • 학교장과 <strong>독립된</strong> 기구<br>
+          • <strong>심의기구</strong> (국·공·사립 모두)<br>
+          • 사립: 2022.3.1.부터 심의기구로 격상
+        </div>
+        <div class="info-box mint">
+          <h4>🎯 설치 목적</h4>
+          • 학교운영 정책결정의 민주성·합리성<br>
+          • 투명성 제고<br>
+          • 학교의 자율성·책무성 강화<br>
+          • 학교자치 체제의 기틀 마련
+        </div>
+        <div class="info-box blue">
+          <h4>⚖️ 근거 법령</h4>
+          • 교육기본법 제5조 제3항<br>
+          • 초·중등교육법 제31조~제34조의2<br>
+          • 초·중등교육법 시행령 제58조~제63조<br>
+          • 경기도립 학교운영위원회 설치·운영 조례
+        </div>
+        <div class="info-box yellow">
+          <h4>📅 도입 연혁</h4>
+          • 1995.5.31. 5.31 교육개혁으로 발표<br>
+          • 1996년 국·공립학교 설치<br>
+          • 2000년 사립학교 설치 의무화<br>
+          • 2022년 사립 심의기구 격상
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-header" onclick="toggle(this)">
+      <h3><span class="section-icon">🔄</span>국·공립 vs 사립 비교</h3>
+      <span class="section-arrow">▼</span>
+    </div>
+    <div class="section-body">
+      <table>
+        <tr><th>구분</th><th>국·공립학교</th><th>사립학교</th></tr>
+        <tr><td><strong>성격</strong></td><td>심의기구</td><td>심의기구 (2022.3.1~)<br><small>구: 자문기구</small></td></tr>
+        <tr><td><strong>학교헌장·학칙</strong></td><td>심의</td><td><span class="tag pink">자문</span></td></tr>
+        <tr><td><strong>예산·결산</strong></td><td>심의</td><td>심의</td></tr>
+        <tr><td><strong>공모교장</strong></td><td>심의</td><td><span class="tag yellow">제외</span></td></tr>
+        <tr><td><strong>초빙교사 추천</strong></td><td>심의</td><td><span class="tag yellow">제외</span></td></tr>
+        <tr><td><strong>학교발전기금</strong></td><td>심의·의결</td><td>심의·의결</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-header" onclick="toggle(this)">
+      <h3><span class="section-icon">📋</span>심의 사항 전체 목록</h3>
+      <span class="section-arrow">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="highlight-box mint" style="margin-bottom:12px;">
+        <strong>초·중등교육법 제32조</strong> 기준 심의사항 (국·공립 기준)
+      </div>
+      <div class="list-item"><div class="dot"></div><div>학교헌장 및 학칙의 제정 또는 개정에 관한 사항</div></div>
+      <div class="list-item"><div class="dot"></div><div>학교의 예산안 및 결산에 관한 사항</div></div>
+      <div class="list-item"><div class="dot"></div><div>학교교육과정의 운영방법에 관한 사항</div></div>
+      <div class="list-item"><div class="dot"></div><div>교과용도서 및 교육자료 선정에 관한 사항</div></div>
+      <div class="list-item"><div class="dot"></div><div>교복·체육복·졸업앨범 등 학부모가 경비를 부담하는 사항</div></div>
+      <div class="list-item"><div class="dot"></div><div>정규학습시간 종료 후 또는 방학기간 중의 교육활동 및 수련활동</div></div>
+      <div class="list-item"><div class="dot"></div><div>공모 교장의 공모방법, 임용, 평가 등에 관한 사항</div></div>
+      <div class="list-item"><div class="dot"></div><div>초빙교사의 추천에 관한 사항</div></div>
+      <div class="list-item"><div class="dot"></div><div>학교운영지원비의 조성·운용 및 사용에 관한 사항</div></div>
+      <div class="list-item"><div class="dot"></div><div>학교급식에 관한 사항</div></div>
+      <div class="list-item"><div class="dot"></div><div>대학입학 특별전형 중 학교장 추천에 관한 사항</div></div>
+      <div class="list-item"><div class="dot"></div><div>학교운동부의 구성·운영에 관한 사항</div></div>
+      <div class="list-item"><div class="dot"></div><div>학교운영에 대한 제안 및 건의 사항</div></div>
+      <div class="list-item"><div class="dot" style="background:#f0a070;"></div><div><strong>[심의·의결]</strong> 학교발전기금의 조성·운용 및 사용에 관한 사항</div></div>
+      <div class="notice">시행령·조례 추가 심의사항: 학생 안전대책, 학교 수업일수·휴업일, 학생지도 지원사항, 현장체험학습 경비 부담사항 등</div>
+    </div>
+  </div>
+
+</div><!-- /tab-overview -->
+
+
+<!-- ═══════════════ TAB 2: 구성 & 선출 ═══════════════ -->
+<div id="tab-composition" class="tab-content">
+
+  <div class="section-card">
+    <div class="section-header" onclick="toggle(this)">
+      <h3><span class="section-icon">👤</span>위원 자격 및 구성</h3>
+      <span class="section-arrow open">▼</span>
+    </div>
+    <div class="section-body open">
+      <div class="info-grid">
+        <div class="info-box pink">
+          <h4>🏠 학부모위원</h4>
+          해당 학교에 자녀를 둔 <strong>학부모</strong><br><br>
+          <span class="tag pink">40~50%</span> (일반학교 기준)
+        </div>
+        <div class="info-box mint">
+          <h4>🎓 교원위원</h4>
+          해당 학교에 재직 중인 <strong>교원</strong><br>
+          (학교장은 당연직 교원위원)<br><br>
+          <span class="tag mint">30~40%</span> (일반학교 기준)
+        </div>
+        <div class="info-box blue" style="grid-column: span 2;">
+          <h4>🌍 지역위원</h4>
+          해당 학교지역을 생활근거지로 하는 자 중:<br>
+          예산·회계·감사·법률 전문가 / 교육행정 공무원 / 사업자 / 졸업생 / 기타 학교운영에 이바지하고자 하는 자<br><br>
+          <span class="tag blue">10~30%</span> (일반학교 기준)
+        </div>
+      </div>
+      <div class="notice">국가공무원법 제33조 각 호에 해당하는 자는 위원으로 선출 불가 (초·중등교육법 제31조의2)</div>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-header" onclick="toggle(this)">
+      <h3><span class="section-icon">📊</span>위원 정수 기준</h3>
+      <span class="section-arrow">▼</span>
+    </div>
+    <div class="section-body">
+      <table>
+        <tr><th>학생 수 기준</th><th>위원 정수</th><th>비고</th></tr>
+        <tr><td>200명 미만</td><td><strong>5~8명</strong></td><td rowspan="3">학교운영위원회 규정으로 정함</td></tr>
+        <tr><td>200명 이상 ~ 1,000명 미만</td><td><strong>9~12명</strong></td></tr>
+        <tr><td>1,000명 이상</td><td><strong>13~15명</strong></td></tr>
+      </table>
+      <div class="success-notice">병설유치원 통합운영 시 유치원 운영위원 2인 이상 별도 추가 (학부모 1인 이상, 교원 1인 이상)</div>
+      <table style="margin-top:14px;">
+        <tr><th>학교 유형</th><th>학부모위원</th><th>교원위원</th><th>지역위원</th></tr>
+        <tr><td>일반 학교</td><td>40~50%</td><td>30~40%</td><td>10~30%</td></tr>
+        <tr><td>산업수요맞춤형고·특성화고</td><td>30~40%</td><td>20~30%</td><td>30~50%</td></tr>
+        <tr><td>학생수 100명 미만</td><td>40~50%</td><td>20~40%</td><td>10~30%</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-header" onclick="toggle(this)">
+      <h3><span class="section-icon">🗓️</span>선출 절차 및 일정</h3>
+      <span class="section-arrow">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="step-flow">
+        <div class="step-box">규정 점검<br><small>3월 1일 학생수 기준</small></div>
+        <span class="step-arrow">→</span>
+        <div class="step-box">구성 계획 수립<br>&amp; 홍보</div>
+        <span class="step-arrow">→</span>
+        <div class="step-box">결격사유 조회<br><small>share.go.kr</small></div>
+        <span class="step-arrow">→</span>
+        <div class="step-box">학부모·교원위원 선출<br><small>~3월 21일</small></div>
+        <span class="step-arrow">→</span>
+        <div class="step-box">지역위원 선출<br><small>~3월 30일</small></div>
+        <span class="step-arrow">→</span>
+        <div class="step-box">위원장·부위원장<br><small>~4월 15일</small></div>
+      </div>
+      <table style="margin-top:16px;">
+        <tr><th>위원 구분</th><th>선출 방법 (공립)</th><th>선출 방법 (사립)</th><th>기한</th></tr>
+        <tr><td><span class="tag pink">학부모위원</span></td><td>학부모전체회의 투표로 선출<br><small>가정통신문·우편·전자투표 병행 가능</small></td><td>공립학교와 같음</td><td>3월 21일까지</td></tr>
+        <tr><td><span class="tag mint">교원위원</span></td><td>교직원전체회의 무기명투표</td><td>교직원전체회의 추천 → 학교장 위촉</td><td>3월 21일까지</td></tr>
+        <tr><td><span class="tag blue">지역위원</span></td><td>학부모·교원위원의 추천 후 무기명투표</td><td>공립학교와 같음</td><td>3월 30일까지</td></tr>
+        <tr><td><span class="tag purple">위원장·부위원장</span></td><td colspan="2">교원이 아닌 위원 중 무기명투표 (재적위원 과반수 득표)</td><td>4월 15일까지</td></tr>
+      </table>
+      <div class="notice">전자투표 활용 시: 중앙선거관리위원회 온라인투표시스템(vote.kvoting.go.kr) 활용. 소견발표는 동영상으로 학교 홈페이지에 게시 권장</div>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-header" onclick="toggle(this)">
+      <h3><span class="section-icon">⚖️</span>위원 권한과 의무</h3>
+      <span class="section-arrow">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="info-grid">
+        <div class="info-box purple">
+          <h4>✅ 위원 권한</h4>
+          • 학교운영 <strong>참여권</strong> — 요구·건의 제안<br>
+          • 중요사안 <strong>심의·자문권</strong><br>
+          • <strong>보고 요구권</strong> — 심의결과 미이행 시<br>
+          • 임기: 4.1. ~ 다음해 3.31. (1년)
+        </div>
+        <div class="info-box peach">
+          <h4>🚫 위원 의무</h4>
+          • <strong>회의참여 의무</strong> — 성실 출석<br>
+          • <strong>지위남용 금지</strong> — 재산상 이익 취득 불가<br>
+          • <strong>비용부담 금지</strong> — 일반 학부모 외 비용 불가<br>
+          • <strong>청탁금지법 준수</strong> — 공무수행 해당
+        </div>
+      </div>
+      <div class="notice">위원이 「국가공무원법」 제33조 각 호에 해당하게 되면 당연 퇴직</div>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-header" onclick="toggle(this)">
+      <h3><span class="section-icon">🔍</span>결격사유 조회 방법 (신설 2025~)</h3>
+      <span class="section-arrow">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="highlight-box peach">
+        <strong>초·중등교육법 제31조의3 신설</strong> — 위원 및 위원 후보자에 대한 결격사유 조회 근거 마련
+      </div>
+      <div class="list-item"><div class="dot"></div><div>방법: 행정정보공동이용시스템(www.share.go.kr) → e하나로민원 → 정보열람 → 결격범죄 유무조회</div></div>
+      <div class="list-item"><div class="dot"></div><div>조회 대상: 위원 후보자 등록 시 (「초·중등교육법 시행규칙」 서식 예정)</div></div>
+      <div class="list-item"><div class="dot"></div><div>개인정보 처리 권한은 「초·중등교육법 시행령」 제57조의3에 명시</div></div>
+    </div>
+  </div>
+
+</div><!-- /tab-composition -->
+
+
+<!-- ═══════════════ TAB 3: 운영 & 회의 ═══════════════ -->
+<div id="tab-operation" class="tab-content">
+
+  <div class="section-card">
+    <div class="section-header" onclick="toggle(this)">
+      <h3><span class="section-icon">📅</span>회의 종류 및 소집</h3>
+      <span class="section-arrow open">▼</span>
+    </div>
+    <div class="section-body open">
+      <div class="info-grid">
+        <div class="info-box pink">
+          <h4>📌 정기회</h4>
+          매년 <strong>4월</strong>에 개최<br>
+          (학교 규정에 따라 다를 수 있음)<br><br>
+          의결 정족수: 재적위원 과반수 출석<br>
+          찬성: 출석위원 과반수
+        </div>
+        <div class="info-box blue">
+          <h4>📌 임시회</h4>
+          학교장 또는 재적위원 <strong>1/3 이상</strong> 요구 시<br><br>
+          소집공고: 회의 <strong>7일 전까지</strong><br>
+          안건 송부 포함
+        </div>
+      </div>
+      <table style="margin-top:12px;">
+        <tr><th>구분</th><th>내용</th></tr>
+        <tr><td><strong>소집공고</strong></td><td>회의 개최 7일 전까지 공고 및 심의 안건 송부 (학교 홈페이지 탑재)</td></tr>
+        <tr><td><strong>사전의견수렴</strong></td><td>회의 전 학생·학부모·교원 등 의견 제안 가능</td></tr>
+        <tr><td><strong>의사 정족수</strong></td><td>재적위원 과반수 출석 → 개의, 출석위원 과반수 찬성 → 결정</td></tr>
+        <tr><td><strong>회의 공개</strong></td><td>회의 및 회의록 공개 원칙 (방청 가능)</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-header" onclick="toggle(this)">
+      <h3><span class="section-icon">🔄</span>회의 진행 절차</h3>
+      <span class="section-arrow">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="step-flow">
+        <div class="step-box">회의소집요구</div>
+        <span class="step-arrow">→</span>
+        <div class="step-box">안건발의</div>
+        <span class="step-arrow">→</span>
+        <div class="step-box">안건접수</div>
+        <span class="step-arrow">→</span>
+        <div class="step-box">소집공고<br><small>7일 전</small></div>
+        <span class="step-arrow">→</span>
+        <div class="step-box">회의개최<br>(개회)</div>
+        <span class="step-arrow">→</span>
+        <div class="step-box">안건상정<br>&amp; 설명</div>
+        <span class="step-arrow">→</span>
+        <div class="step-box">질의답변<br>&amp; 토론</div>
+        <span class="step-arrow">→</span>
+        <div class="step-box">표결</div>
+        <span class="step-arrow">→</span>
+        <div class="step-box">폐회</div>
+      </div>
+      <div class="highlight-box" style="margin-top:14px;">
+        <strong>안건 발의 주체:</strong> 학교장, 운영위원(재적위원 1/4 이상 서명), 학생대표(학생회 의견수렴 후 제안)
+      </div>
+      <table style="margin-top:12px;">
+        <tr><th>용어</th><th>설명</th></tr>
+        <tr><td><strong>의제</strong></td><td>당일 회의에 상정된 심의·자문 대상의 제목</td></tr>
+        <tr><td><strong>안건</strong></td><td>의사일정 상정 여부와 무관하게 논의 대상이 되는 모든 사안</td></tr>
+        <tr><td><strong>의안</strong></td><td>형식적 요건을 갖춘 안건으로 수정안 제출이 가능한 것</td></tr>
+        <tr><td><strong>동의(同意)</strong></td><td>의안이나 발언에 찬성의 뜻을 표하는 것</td></tr>
+        <tr><td><strong>동의(動議)</strong></td><td>회의 중 안건에 관한 새로운 제안을 하는 것</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-header" onclick="toggle(this)">
+      <h3><span class="section-icon">🔬</span>소위원회</h3>
+      <span class="section-arrow">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="highlight-box mint">
+        안건에 대한 사전 조사·자료수집·검토를 통해 전문성과 효율성을 높이기 위한 소규모 위원회
+      </div>
+      <div class="info-grid" style="margin-top:12px;">
+        <div class="info-box yellow">
+          <h4>필수 소위원회</h4>
+          <span class="tag mint">학교급식소위원회</span><br>
+          <span class="tag blue">예·결산소위원회</span><br>
+          <small>※ 학생수 100명 미만은 예·결산 미구성 가능</small>
+        </div>
+        <div class="info-box gray">
+          <h4>선택 소위원회 (예시)</h4>
+          교육과정소위원회<br>
+          방과후학교소위원회<br>
+          기타 학교 실정에 맞게 구성
+        </div>
+      </div>
+      <div class="notice">소위원회는 9명 이내로 구성. 운영위원 외 학부모·학생·교직원 참여 가능</div>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-header" onclick="toggle(this)">
+      <h3><span class="section-icon">📢</span>심의결과 처리</h3>
+      <span class="section-arrow">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="list-item"><div class="dot"></div><div>심의 종료 후 <strong>7일 이내</strong> 심의결과를 학교 홈페이지에 공고</div></div>
+      <div class="list-item"><div class="dot"></div><div>학교장이 심의결과를 이행하지 않거나 다르게 시행 시 → 운영위원회에 보고 요구 가능</div></div>
+      <div class="list-item"><div class="dot"></div><div>회의록은 작성 후 공개 (비공개 결의 제외)</div></div>
+      <div class="list-item"><div class="dot"></div><div>심의 없이 시행하거나 심의결과와 다르게 시행 시 → 교육감·교육장에게 시정명령 신청 가능</div></div>
+    </div>
+  </div>
+
+</div><!-- /tab-operation -->
+
+
+<!-- ═══════════════ TAB 4: 자동완성 서식 ═══════════════ -->
+<style>
+.tbl-input { width:100%; border:none; padding:4px 6px; font-size:0.86rem; background:transparent; font-family:inherit; }
+.tbl-input:focus { outline:1px solid #b07ae0; background:#fff; border-radius:4px; }
+.rich-cell {
+  width:100%; min-height:60px; padding:6px 8px; font-size:0.86rem;
+  font-family:'Malgun Gothic','맑은 고딕',sans-serif; line-height:1.6;
+  border:1px dashed #c8b8e0; border-radius:4px; background:#fdfbff;
+  outline:none; box-sizing:border-box; overflow:auto;
+}
+.rich-cell:focus { border-color:#b07ae0; background:#fff; }
+.rich-cell:empty::before { content:attr(data-placeholder); color:#bbb; font-size:0.83rem; }
+.rich-cell table { border-collapse:collapse; width:100%; font-size:0.84rem; }
+.rich-cell table td, .rich-cell table th { border:1px solid #bbb; padding:4px 6px; }
+.rich-cell img { max-width:100%; height:auto; display:block; margin:4px 0; }
+
+/* 리치셀 툴바 */
+.rich-toolbar {
+  display:none; gap:4px; flex-wrap:wrap;
+  padding:4px 6px; background:#f0e8ff;
+  border:1px solid #c8b8e0; border-bottom:none;
+  border-radius:6px 6px 0 0;
+  font-size:0.75rem;
+}
+.rich-toolbar.visible { display:flex; }
+.rich-toolbar button {
+  padding:3px 9px; border:1px solid #c0a8e0; border-radius:5px;
+  background:#fff; color:#5a2080; font-size:0.75rem; cursor:pointer;
+  font-family:inherit; font-weight:600; white-space:nowrap;
+}
+.rich-toolbar button:hover { background:#e8d8f8; }
+.rich-cell-wrap { position:relative; }
+.rich-cell-wrap .rich-toolbar + .rich-cell { border-radius:0 0 4px 4px; }
+.add-row-btn { margin-top:8px; padding:5px 14px; background:#e8d8f8; border:1px solid #c8a8e8; border-radius:8px; font-size:0.82rem; font-weight:600; color:#5a2080; cursor:pointer; }
+.add-row-btn:hover { background:#d8c0f0; }
+.del-row-btn { border:none; background:none; color:#c08080; font-size:1rem; cursor:pointer; padding:0 4px; }
+.del-row-btn:hover { color:#a03030; }
+.editable-hint { font-size:0.76rem; color:#9070b8; margin-bottom:6px; }
+</style>
+<div id="tab-forms" class="tab-content">
+
+  <!-- 기본정보 입력 패널 -->
+  <div class="form-section">
+    <h3>📝 기본 정보 입력 <small style="font-size:0.78rem;font-weight:400;color:var(--sub);">— 한 번 입력하면 모든 서식에 자동 반영됩니다</small></h3>
+    <div class="form-2col">
+      <div class="form-row"><label class="form-label">학교명 <span style="color:#c07050">*</span></label>
+        <input class="form-input" id="schoolName" type="text" placeholder="예: ○○초등학교"></div>
+      <div class="form-row"><label class="form-label">학년도</label>
+        <input class="form-input" id="year" type="text" value="2026" placeholder="2026"></div>
+      <div class="form-row"><label class="form-label">학교장 성명</label>
+        <input class="form-input" id="principal" type="text" placeholder="예: 홍길동"></div>
+      <div class="form-row"><label class="form-label">간사</label>
+        <input class="form-input" id="secretary" type="text" placeholder="예: 이○○"></div>
+      <div class="form-row"><label class="form-label">위원 정수 (총)</label>
+        <input class="form-input" id="memberCount" type="number" placeholder="예: 9"></div>
+      <div class="form-row"><label class="form-label">학부모위원 수</label>
+        <input class="form-input" id="parentCount" type="number" placeholder="예: 4"></div>
+      <div class="form-row"><label class="form-label">교원위원 수</label>
+        <input class="form-input" id="teacherCount" type="number" placeholder="예: 3"></div>
+      <div class="form-row"><label class="form-label">지역위원 수</label>
+        <input class="form-input" id="localCount" type="number" placeholder="예: 2"></div>
+      <div class="form-row"><label class="form-label">위원장 성명</label>
+        <input class="form-input" id="chairman" type="text" placeholder="예: 김○○"></div>
+      <div class="form-row"><label class="form-label">기수 (제 ○ 기)</label>
+        <input class="form-input" id="period" type="text" value="1" placeholder="예: 1"></div>
+    </div>
+  </div>
+
+  <!-- 서식 선택 탭 -->
+  <div class="form-section">
+    <h3>📋 서식 선택</h3>
+    <div class="form-tabs" style="flex-wrap:wrap;">
+      <button class="form-tab-btn active" onclick="selectForm('f12')">선출공고</button>
+      <button class="form-tab-btn" onclick="selectForm('f13')">입후보 등록서</button>
+      <button class="form-tab-btn" onclick="selectForm('f31')">당선자 공고</button>
+      <button class="form-tab-btn" onclick="selectForm('f32')">당선통지서</button>
+      <button class="form-tab-btn" onclick="selectForm('f35')">의무서약서</button>
+      <button class="form-tab-btn" onclick="selectForm('f74')">회의 개최공고</button>
+      <button class="form-tab-btn" onclick="selectForm('f75')">회의록</button>
+      <button class="form-tab-btn" onclick="selectForm('f79')">구성결과 안내</button>
+      <button class="form-tab-btn" onclick="selectForm('f_result')">심의결과 홍보</button>
+    </div>
+
+    <!-- 선출공고 -->
+    <div class="form-panel active" id="panel-f12">
+      <div class="form-2col">
+        <div class="form-row"><label class="form-label">공고 번호</label>
+          <input class="form-input" id="f12_no" type="text" placeholder="예: 2026-001"></div>
+        <div class="form-row"><label class="form-label">공고일</label>
+          <input class="form-input" id="f12_date" type="text" placeholder="예: 2026년 3월 5일"></div>
+        <div class="form-row"><label class="form-label">입후보 등록 기간</label>
+          <input class="form-input" id="f12_reg" type="text" placeholder="예: 3월 5일 ~ 3월 11일"></div>
+        <div class="form-row"><label class="form-label">선거 일시</label>
+          <input class="form-input" id="f12_election" type="text" placeholder="예: 2026년 3월 19일(목) 15:00"></div>
+        <div class="form-row"><label class="form-label">선거 장소</label>
+          <input class="form-input" id="f12_place" type="text" placeholder="예: 본교 강당"></div>
+      </div>
+    </div>
+
+    <!-- 입후보 등록서 -->
+    <div class="form-panel" id="panel-f13">
+      <div class="form-2col">
+        <div class="form-row"><label class="form-label">입후보자 성명</label>
+          <input class="form-input" id="f13_name" type="text" placeholder="예: 홍길동"></div>
+        <div class="form-row"><label class="form-label">휴대전화</label>
+          <input class="form-input" id="f13_phone" type="text" placeholder="예: 010-0000-0000"></div>
+        <div class="form-row"><label class="form-label">주소</label>
+          <input class="form-input" id="f13_addr" type="text" placeholder="예: 경기도 화성시 ○○동"></div>
+        <div class="form-row"><label class="form-label">자녀 학년·반·성명</label>
+          <input class="form-input" id="f13_child" type="text" placeholder="예: 3학년 2반 홍○○"></div>
+        <div class="form-row"><label class="form-label">경력</label>
+          <input class="form-input" id="f13_career" type="text" placeholder="예: ○○초 학부모회 임원 2년(2024~)"></div>
+        <div class="form-row"><label class="form-label">등록일</label>
+          <input class="form-input" id="f13_date" type="text" placeholder="예: 2026년 3월 8일"></div>
+        <div class="form-row" style="grid-column:span 2"><label class="form-label">입후보 소견</label>
+          <textarea class="form-input" id="f13_opinion" rows="3" placeholder="예: 저는 학교 발전을 위해..."></textarea></div>
+      </div>
+    </div>
+
+    <!-- 당선자 공고 -->
+    <div class="form-panel" id="panel-f31">
+      <div class="form-2col">
+        <div class="form-row"><label class="form-label">공고 번호</label>
+          <input class="form-input" id="f31_no" type="text" placeholder="예: 2026-005"></div>
+        <div class="form-row"><label class="form-label">선거일</label>
+          <input class="form-input" id="f31_date" type="text" placeholder="예: 2026년 3월 19일"></div>
+      </div>
+      <label class="form-label" style="margin-top:10px;display:block;">당선자 명단</label>
+      <table style="width:100%;border-collapse:collapse;font-size:0.86rem;margin-top:4px;" id="f31_table">
+        <thead><tr style="background:#ede8f8;">
+          <th style="border:1px solid #c8b8e0;padding:7px 8px;width:36px;"></th>
+          <th style="border:1px solid #c8b8e0;padding:7px 8px;">성명</th>
+          <th style="border:1px solid #c8b8e0;padding:7px 8px;width:70px;">성별</th>
+          <th style="border:1px solid #c8b8e0;padding:7px 8px;">비고(소견 등)</th>
+        </tr></thead>
+        <tbody id="f31_tbody"></tbody>
+      </table>
+      <button class="add-row-btn" onclick="addRow('f31_tbody',['성명','남/여',''])">+ 행 추가</button>
+    </div>
+
+    <!-- 당선통지서 -->
+    <div class="form-panel" id="panel-f32">
+      <div class="form-2col">
+        <div class="form-row"><label class="form-label">당선자 성명</label>
+          <input class="form-input" id="f32_name" type="text" placeholder="예: 홍길동"></div>
+        <div class="form-row"><label class="form-label">위원 구분</label>
+          <select class="form-select" id="f32_type">
+            <option>학부모위원</option><option>교원위원</option><option>지역위원</option>
+          </select></div>
+        <div class="form-row"><label class="form-label">임기 시작 연도 (2자리)</label>
+          <input class="form-input" id="f32_startyr" type="text" value="26" placeholder="예: 26"></div>
+        <div class="form-row"><label class="form-label">발행일</label>
+          <input class="form-input" id="f32_date" type="text" placeholder="예: 2026년 3월 20일"></div>
+      </div>
+    </div>
+
+    <!-- 의무서약서 -->
+    <div class="form-panel" id="panel-f35">
+      <div class="form-2col">
+        <div class="form-row"><label class="form-label">위원 성명</label>
+          <input class="form-input" id="f35_name" type="text" placeholder="예: 홍길동"></div>
+        <div class="form-row"><label class="form-label">위원 구분</label>
+          <select class="form-select" id="f35_type">
+            <option>학부모위원</option><option>교원위원</option><option>지역위원</option>
+          </select></div>
+        <div class="form-row"><label class="form-label">서약일</label>
+          <input class="form-input" id="f35_date" type="text" placeholder="예: 2026년 4월 1일"></div>
+      </div>
+    </div>
+
+    <!-- 회의 개최공고 -->
+    <div class="form-panel" id="panel-f74">
+      <div class="form-2col">
+        <div class="form-row"><label class="form-label">회의 종류</label>
+          <select class="form-select" id="f74_type"><option>정기회</option><option>임시회</option></select></div>
+        <div class="form-row"><label class="form-label">회차 (제 ○ 회)</label>
+          <input class="form-input" id="f74_round" type="text" value="1"></div>
+        <div class="form-row"><label class="form-label">회의 일시</label>
+          <input class="form-input" id="f74_date" type="text" placeholder="예: 2026년 4월 10일(금) 11:00"></div>
+        <div class="form-row"><label class="form-label">회의 장소</label>
+          <input class="form-input" id="f74_place" type="text" placeholder="예: 본교 운영위원회 회의실"></div>
+        <div class="form-row"><label class="form-label">공고일</label>
+          <input class="form-input" id="f74_pubdate" type="text" placeholder="예: 2026년 4월 3일"></div>
+      </div>
+      <label class="form-label" style="margin-top:10px;display:block;">안건 목록</label>
+      <table style="width:100%;border-collapse:collapse;font-size:0.86rem;margin-top:4px;" id="f74_table">
+        <thead><tr style="background:#ede8f8;">
+          <th style="border:1px solid #c8b8e0;padding:7px 8px;width:36px;"></th>
+          <th style="border:1px solid #c8b8e0;padding:7px 8px;width:60px;">순번</th>
+          <th style="border:1px solid #c8b8e0;padding:7px 8px;">안건 제목</th>
+        </tr></thead>
+        <tbody id="f74_tbody"></tbody>
+      </table>
+      <button class="add-row-btn" onclick="addAgendaRow('f74_tbody')">+ 행 추가</button>
+    </div>
+
+    <!-- 회의록 -->
+    <div class="form-panel" id="panel-f75">
+      <div class="form-2col">
+        <div class="form-row"><label class="form-label">회의 종류</label>
+          <select class="form-select" id="f75_type"><option>정기회</option><option>임시회</option></select></div>
+        <div class="form-row"><label class="form-label">회차</label>
+          <input class="form-input" id="f75_round" type="text" value="1"></div>
+        <div class="form-row"><label class="form-label">회의 일시</label>
+          <input class="form-input" id="f75_date" type="text" placeholder="예: 2026년 4월 10일(금) 11:00"></div>
+        <div class="form-row"><label class="form-label">회의 장소</label>
+          <input class="form-input" id="f75_place" type="text" placeholder="예: 본교 운영위원회 회의실"></div>
+        <div class="form-row"><label class="form-label">재적위원 수</label>
+          <input class="form-input" id="f75_total" type="number" placeholder="예: 9"></div>
+        <div class="form-row"><label class="form-label">출석위원 수</label>
+          <input class="form-input" id="f75_attend" type="number" placeholder="예: 8"></div>
+      </div>
+      <label class="form-label" style="margin-top:10px;display:block;">안건 목록</label>
+      <table style="width:100%;border-collapse:collapse;font-size:0.86rem;margin-top:4px;">
+        <thead><tr style="background:#ede8f8;">
+          <th style="border:1px solid #c8b8e0;padding:7px;width:36px;"></th>
+          <th style="border:1px solid #c8b8e0;padding:7px;width:70px;">번호</th>
+          <th style="border:1px solid #c8b8e0;padding:7px;min-width:120px;">안건 제목</th>
+          <th style="border:1px solid #c8b8e0;padding:7px;">회의 내용 (제안설명·질의응답 등)</th>
+          <th style="border:1px solid #c8b8e0;padding:7px;width:110px;">심의 결과</th>
+        </tr></thead>
+        <tbody id="f75_tbody"></tbody>
+      </table>
+      <button class="add-row-btn" onclick="addMinutesRow('f75_tbody')">+ 행 추가</button>
+    </div>
+
+    <!-- 구성결과 안내문 -->
+    <div class="form-panel" id="panel-f79">
+      <div class="form-2col">
+        <div class="form-row"><label class="form-label">안내문 발송일</label>
+          <input class="form-input" id="f79_date" type="text" placeholder="예: 2026년 4월 5일"></div>
+      </div>
+      <label class="form-label" style="margin-top:10px;display:block;">학부모위원</label>
+      <table style="width:100%;border-collapse:collapse;font-size:0.86rem;margin-top:4px;">
+        <thead><tr style="background:#ede8f8;">
+          <th style="border:1px solid #c8b8e0;padding:7px;width:36px;"></th>
+          <th style="border:1px solid #c8b8e0;padding:7px;">성명</th>
+          <th style="border:1px solid #c8b8e0;padding:7px;width:70px;">성별</th>
+          <th style="border:1px solid #c8b8e0;padding:7px;">비고</th>
+        </tr></thead>
+        <tbody id="f79_parent_tbody"></tbody>
+      </table>
+      <button class="add-row-btn" onclick="addRow('f79_parent_tbody',['성명','남/여',''])">+ 행 추가</button>
+
+      <label class="form-label" style="margin-top:14px;display:block;">교원위원</label>
+      <table style="width:100%;border-collapse:collapse;font-size:0.86rem;margin-top:4px;">
+        <thead><tr style="background:#ede8f8;">
+          <th style="border:1px solid #c8b8e0;padding:7px;width:36px;"></th>
+          <th style="border:1px solid #c8b8e0;padding:7px;">성명</th>
+          <th style="border:1px solid #c8b8e0;padding:7px;width:70px;">성별</th>
+          <th style="border:1px solid #c8b8e0;padding:7px;">비고</th>
+        </tr></thead>
+        <tbody id="f79_teacher_tbody"></tbody>
+      </table>
+      <button class="add-row-btn" onclick="addRow('f79_teacher_tbody',['성명','남/여',''])">+ 행 추가</button>
+
+      <label class="form-label" style="margin-top:14px;display:block;">지역위원</label>
+      <table style="width:100%;border-collapse:collapse;font-size:0.86rem;margin-top:4px;">
+        <thead><tr style="background:#ede8f8;">
+          <th style="border:1px solid #c8b8e0;padding:7px;width:36px;"></th>
+          <th style="border:1px solid #c8b8e0;padding:7px;">성명</th>
+          <th style="border:1px solid #c8b8e0;padding:7px;width:70px;">성별</th>
+          <th style="border:1px solid #c8b8e0;padding:7px;">비고</th>
+        </tr></thead>
+        <tbody id="f79_local_tbody"></tbody>
+      </table>
+      <button class="add-row-btn" onclick="addRow('f79_local_tbody',['성명','남/여',''])">+ 행 추가</button>
+    </div>
+
+    <!-- 심의결과 홍보 -->
+    <div class="form-panel" id="panel-f_result">
+      <div class="form-2col">
+        <div class="form-row"><label class="form-label">회의 일시</label>
+          <input class="form-input" id="fr_date" type="text" placeholder="예: 2026년 4월 10일"></div>
+        <div class="form-row"><label class="form-label">회차</label>
+          <input class="form-input" id="fr_round" type="text" value="1"></div>
+        <div class="form-row"><label class="form-label">공고일</label>
+          <input class="form-input" id="fr_pubdate" type="text" placeholder="예: 2026년 4월 12일"></div>
+      </div>
+      <label class="form-label" style="margin-top:10px;display:block;">심의결과 목록</label>
+      <table style="width:100%;border-collapse:collapse;font-size:0.86rem;margin-top:4px;">
+        <thead><tr style="background:#ede8f8;">
+          <th style="border:1px solid #c8b8e0;padding:7px;width:36px;"></th>
+          <th style="border:1px solid #c8b8e0;padding:7px;width:55px;">번호</th>
+          <th style="border:1px solid #c8b8e0;padding:7px;">안건 제목</th>
+          <th style="border:1px solid #c8b8e0;padding:7px;width:110px;">심의 결과</th>
+          <th style="border:1px solid #c8b8e0;padding:7px;">심의 내용</th>
+        </tr></thead>
+        <tbody id="fr_tbody"></tbody>
+      </table>
+      <button class="add-row-btn" onclick="addResultRow('fr_tbody')">+ 행 추가</button>
+    </div>
+
+    <button class="btn-generate" onclick="generateDoc()">🖨️ 서식 미리보기 &amp; 인쇄</button>
+
+    <!-- 출력 영역: 실제 한글 양식 렌더링 (contenteditable) -->
+    <div class="output-box" id="outputBox" style="padding:0; background:#f8f6ff; font-family:'Malgun Gothic',sans-serif; white-space:normal;">
+      <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; border-bottom:1px solid #e0d8f0; background:#fff;">
+        <p class="editable-hint" style="margin:0;">💡 미리보기에서 직접 클릭하여 내용을 수정할 수 있습니다</p>
+        <div style="display:flex;gap:8px;">
+          <button class="btn-copy" style="position:static" onclick="copyOutputText()">📋 복사</button>
+          <button class="btn-copy" style="position:static; background:#9070c0;" onclick="printDoc()">🖨️ 인쇄</button>
+        </div>
+      </div>
+      <div id="docPreview" contenteditable="true" style="padding:28px; outline:none; min-height:200px;"></div>
+    </div>
+  </div>
+
+</div><!-- /tab-forms -->
+
+
+<script>
+// ── 리치셀 HTML 생성 ──
+function makeRichCell(placeholder) {
+  const uid = 'rc_' + Math.random().toString(36).slice(2,7);
+  return `<div class="rich-cell-wrap">
+    <div class="rich-toolbar" id="tb_${uid}">
+      <button type="button" onclick="insertImg('${uid}')">🖼️ 이미지</button>
+      <button type="button" onclick="execCmd('bold','${uid}')"><b>B</b></button>
+      <button type="button" onclick="execCmd('italic','${uid}')"><i>I</i></button>
+      <button type="button" onclick="execCmd('underline','${uid}')"><u>U</u></button>
+      <button type="button" onclick="execCmd('insertUnorderedList','${uid}')">• 목록</button>
+      <button type="button" onclick="clearCell('${uid}')">🗑️ 지우기</button>
+    </div>
+    <div class="rich-cell" id="${uid}" contenteditable="true"
+         data-placeholder="${placeholder}"
+         onfocus="showToolbar('${uid}')"
+         onblur="hideToolbar('${uid}')"></div>
+    <input type="file" id="fi_${uid}" accept="image/*" style="display:none"
+           onchange="loadImg(this,'${uid}')">
+  </div>`;
+}
+
+function showToolbar(uid) {
+  const tb = document.getElementById('tb_' + uid);
+  if (tb) tb.classList.add('visible');
+}
+function hideToolbar(uid) {
+  // 툴바 버튼 클릭 시 blur가 먼저 오므로 딜레이로 처리
+  setTimeout(() => {
+    const tb = document.getElementById('tb_' + uid);
+    const cell = document.getElementById(uid);
+    if (tb && document.activeElement !== cell &&
+        !tb.contains(document.activeElement)) {
+      tb.classList.remove('visible');
+    }
+  }, 200);
+}
+function execCmd(cmd, uid) {
+  document.getElementById(uid).focus();
+  document.execCommand(cmd, false, null);
+}
+function clearCell(uid) {
+  const el = document.getElementById(uid);
+  if (el) el.innerHTML = '';
+}
+function insertImg(uid) {
+  document.getElementById('fi_' + uid).click();
+}
+function loadImg(input, uid) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const cell = document.getElementById(uid);
+    cell.focus();
+    const img = document.createElement('img');
+    img.src = e.target.result;
+    img.style.maxWidth = '100%';
+    // 커서 위치에 삽입
+    const sel = window.getSelection();
+    if (sel && sel.rangeCount) {
+      const range = sel.getRangeAt(0);
+      range.insertNode(img);
+      range.collapse(false);
+    } else {
+      cell.appendChild(img);
+    }
+  };
+  reader.readAsDataURL(file);
+  input.value = '';
+}
+
+// ── 동적 행 추가 ──
+function addRow(tbodyId, placeholders) {
+  const tbody = document.getElementById(tbodyId);
+  const tr = document.createElement('tr');
+  const delTd = document.createElement('td');
+  delTd.style.cssText = 'border:1px solid #c8b8e0;padding:4px;text-align:center;';
+  delTd.innerHTML = '<button class="del-row-btn" onclick="this.closest(\'tr\').remove()">✕</button>';
+  tr.appendChild(delTd);
+  placeholders.forEach(ph => {
+    const td = document.createElement('td');
+    td.style.cssText = 'border:1px solid #c8b8e0;padding:2px 4px;';
+    td.innerHTML = `<input class="tbl-input" placeholder="${ph}">`;
+    tr.appendChild(td);
+  });
+  tbody.appendChild(tr);
+}
+
+function addAgendaRow(tbodyId) {
+  const tbody = document.getElementById(tbodyId);
+  const num = tbody.rows.length + 1;
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td style="border:1px solid #c8b8e0;padding:4px;text-align:center;">
+      <button class="del-row-btn" onclick="this.closest('tr').remove()">✕</button></td>
+    <td style="border:1px solid #c8b8e0;padding:2px 4px;">
+      <input class="tbl-input" value="제${num}호 의안" style="text-align:center;"></td>
+    <td style="border:1px solid #c8b8e0;padding:2px 4px;">
+      <input class="tbl-input" placeholder="안건 제목"></td>`;
+  tbody.appendChild(tr);
+}
+
+function addMinutesRow(tbodyId) {
+  const tbody = document.getElementById(tbodyId);
+  const num = tbody.rows.length + 1;
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td style="border:1px solid #c8b8e0;padding:4px;text-align:center;vertical-align:top;padding-top:8px;">
+      <button class="del-row-btn" onclick="this.closest('tr').remove()">✕</button></td>
+    <td style="border:1px solid #c8b8e0;padding:2px 4px;vertical-align:top;">
+      <input class="tbl-input" value="제${num}호" style="text-align:center;"></td>
+    <td style="border:1px solid #c8b8e0;padding:2px 4px;vertical-align:top;">
+      <input class="tbl-input" placeholder="안건 제목"></td>
+    <td style="border:1px solid #c8b8e0;padding:4px;">
+      ${makeRichCell('제안설명, 질의응답, 주요 발언 내용 (표·이미지 붙여넣기 가능)')}</td>
+    <td style="border:1px solid #c8b8e0;padding:2px 4px;vertical-align:top;">
+      <select class="tbl-input" style="width:100%;padding:4px;">
+        <option>원안 가결</option><option>수정 가결</option><option>부결</option><option>보류</option>
+      </select></td>`;
+  tbody.appendChild(tr);
+}
+
+function addResultRow(tbodyId) {
+  const tbody = document.getElementById(tbodyId);
+  const num = tbody.rows.length + 1;
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td style="border:1px solid #c8b8e0;padding:4px;text-align:center;">
+      <button class="del-row-btn" onclick="this.closest('tr').remove()">✕</button></td>
+    <td style="border:1px solid #c8b8e0;padding:2px 4px;">
+      <input class="tbl-input" value="${num}" style="text-align:center;"></td>
+    <td style="border:1px solid #c8b8e0;padding:2px 4px;">
+      <input class="tbl-input" placeholder="안건 제목"></td>
+    <td style="border:1px solid #c8b8e0;padding:2px 4px;">
+      <select class="tbl-input" style="width:100%;padding:4px;">
+        <option>원안 가결</option><option>수정 가결</option><option>부결</option><option>보류</option>
+      </select></td>
+    <td style="border:1px solid #c8b8e0;padding:4px;">
+      ${makeRichCell('심의 내용 (표·이미지 붙여넣기 가능)')}</td>`;
+  tbody.appendChild(tr);
+}
+
+// 페이지 로드 시 기본 행 세팅
+function initTables() {
+  // 당선자 공고 4행
+  for(let i=0;i<4;i++) addRow('f31_tbody',['성명','남/여','']);
+  // 회의 개최공고 안건 4행
+  for(let i=0;i<4;i++) addAgendaRow('f74_tbody');
+  // 회의록 안건 4행
+  for(let i=0;i<4;i++) addMinutesRow('f75_tbody');
+  // 구성결과 위원 명단 4행씩
+  for(let i=0;i<4;i++) addRow('f79_parent_tbody',['성명','남/여','']);
+  for(let i=0;i<3;i++) addRow('f79_teacher_tbody',['성명','남/여','']);
+  for(let i=0;i<2;i++) addRow('f79_local_tbody',['성명','남/여','']);
+  // 심의결과 4행
+  for(let i=0;i<4;i++) addResultRow('fr_tbody');
+}
+window.addEventListener('DOMContentLoaded', initTables);
+
+// ── Tab switching ──
+function showTab(tabId) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + tabId).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
+// ── Accordion ──
+function toggle(header) {
+  const body  = header.nextElementSibling;
+  const arrow = header.querySelector('.section-arrow');
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  arrow.classList.toggle('open', !isOpen);
+}
+
+// ── Form tab selection ──
+let currentForm = 'f12';
+function selectForm(name) {
+  currentForm = name;
+  document.querySelectorAll('.form-tab-btn').forEach(b => b.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  document.querySelectorAll('.form-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  document.getElementById('outputBox').classList.remove('visible');
+}
+
+// ── tbody → 배열 추출 헬퍼 ──
+// contenteditable div는 innerHTML(표 등 포함), input/select/textarea는 value로 읽음
+function getTableRows(tbodyId, colCount) {
+  const rows = [];
+  const tbody = document.getElementById(tbodyId);
+  if (!tbody) return rows;
+  tbody.querySelectorAll('tr').forEach(tr => {
+    // rich-cell-wrap 안의 숨김 file input은 제외
+    const cells = tr.querySelectorAll(
+      'input:not([type=file]), select, textarea, [contenteditable="true"]'
+    );
+    const row = [];
+    for (let i = 0; i < colCount; i++) {
+      if (!cells[i]) { row.push(''); continue; }
+      if (cells[i].hasAttribute('contenteditable')) {
+        row.push(cells[i].innerHTML.trim());
+      } else {
+        row.push(cells[i].value.trim());
+      }
+    }
+    rows.push(row);
+  });
+  return rows;
+}
+
+// ── Get value helper ──
+function v(id) { const el = document.getElementById(id); return el ? el.value.trim() : ''; }
+function g(id, fallback) { return v(id) || fallback; }
+
+// ── 공문 스타일 HTML 렌더러 ──
+function docWrap(title, body) {
+  return `
+<div style="max-width:680px;margin:0 auto;padding:16px 20px 30px;font-size:0.9rem;line-height:1.9;color:#1a1a2e;font-family:'Malgun Gothic','맑은 고딕',sans-serif;">
+  <div style="text-align:center;font-size:1.15rem;font-weight:700;letter-spacing:1px;padding:10px 0 18px;border-bottom:2px solid #333;margin-bottom:20px;">${title}</div>
+  ${body}
+</div>`;
+}
+
+function tableStyle(rows) {
+  return `<table style="width:100%;border-collapse:collapse;margin:12px 0;font-size:0.88rem;">
+    ${rows.map(r=>`<tr>${r.map((c,i)=>`<${i===0?'th':'td'} style="border:1px solid #888;padding:7px 10px;${i===0?'background:#ede8f8;font-weight:700;width:30%;':''}text-align:left;">${c}</${i===0?'th':'td'}>`).join('')}</tr>`).join('')}
+  </table>`;
+}
+
+function item(text) {
+  return `<div style="padding:4px 0 4px 12px;border-bottom:1px dashed #e0d8f0;">${text}</div>`;
+}
+
+function section(title, content) {
+  return `<div style="margin:14px 0;">
+    <div style="font-weight:700;color:#4a2070;margin-bottom:6px;">□ ${title}</div>
+    ${content}
+  </div>`;
+}
+
+function stamp(name) {
+  return `<span style="display:inline-block;width:50px;height:50px;border:2px solid #c03030;border-radius:50%;color:#c03030;font-size:0.7rem;font-weight:700;text-align:center;line-height:50px;margin-left:8px;vertical-align:middle;">(직인)</span>`;
+}
+
+function sig(label, name) {
+  return `<div style="display:flex;align-items:center;gap:12px;margin-top:4px;">
+    <span style="min-width:60px;font-weight:600;">${label}</span>
+    <span style="min-width:80px;">${name}</span>
+    <span style="border-bottom:1px solid #999;min-width:120px;height:22px;display:inline-block;"></span>
+    <span style="font-size:0.78rem;color:#888;">(서명 또는 인)</span>
+  </div>`;
+}
+
+function checkBox(checked) {
+  return checked ? '☑' : '☐';
+}
+
+// ── Generate document ──
+function generateDoc() {
+  const school    = g('schoolName','○○학교');
+  const year      = g('year','2026');
+  const principal = g('principal','○○○');
+  const secretary = g('secretary','○○○');
+  const total     = g('memberCount','○○');
+  const parents   = g('parentCount','○○');
+  const teachers  = g('teacherCount','○○');
+  const locals    = g('localCount','○○');
+  const chairman  = g('chairman','○○○');
+  const period    = g('period','1');
+  const nextYear  = String(parseInt(year)+1);
+
+  let html = '';
+
+  /* ─── 별지12 ─── */
+  if (currentForm === 'f12') {
+    const no      = g('f12_no','2026-000');
+    const date    = g('f12_date',`${year}년 3월 ○일`);
+    const reg     = g('f12_reg',`${year}년 ○월 ○일 ~ ○월 ○일`);
+    const elec    = g('f12_election',`${year}년 3월 19일 15:00`);
+    const place   = g('f12_place','본교 강당');
+    html = docWrap('학부모위원 선출공고', `
+<div style="text-align:right;font-size:0.82rem;color:#555;">공고 제${no}호</div>
+<div style="text-align:center;font-weight:700;font-size:1.05rem;margin:10px 0 18px;">학 부 모 위 원 선 출 공 고</div>
+<div style="margin-bottom:14px;">
+  ${school}운영위원회규정 제○조에 의하여 다음과 같이 ${school}운영위원회 학부모위원 선출을 공고합니다.
+</div>
+${section('입후보 등록', `
+  ${item(`가. 자 격 : 본교 학부모로서 국가공무원법 제33조 각호의 어느 하나에 해당되지 아니한 자`)}
+  ${item(`나. 등록기간 : ${reg}`)}
+  ${item(`다. 등록장소 : 학교 행정실`)}
+  ${item(`라. 구비서류 : 학부모위원 입후보 등록서 1부, 개인정보 수집·이용 동의서 1부, 행정정보 공동이용 사전동의서 1부`)}
+`)}
+${section('위원선거', `
+  ${item(`가. 일 시 : ${elec}`)}
+  ${item(`나. 장 소 : ${place}`)}
+  ${item(`다. 위원정수 : 학부모위원 ${parents}명`)}
+  ${item(`라. 선출방법 : 학부모 전체회의에서 직접투표로 선출 (전자적 방법 병행 가능)`)}
+`)}
+${section('당선자 결정', `
+  ${item(`가. 위원정수에 해당하는 다수 득표자를 당선자로 결정`)}
+  ${item(`나. 동일 득표 시 연장자 우선`)}
+`)}
+<div style="text-align:center;margin-top:28px;">
+  ${date}<br><br>
+  <strong>${school} 학교운영위원회 학부모위원선출관리위원회 위원장</strong> ${stamp('')}
+</div>
+    `);
+  }
+
+  /* ─── 별지13 ─── */
+  else if (currentForm === 'f13') {
+    const name    = g('f13_name','○○○');
+    const phone   = g('f13_phone','010-XXXX-XXXX');
+    const addr    = g('f13_addr','○○시 ○○동');
+    const child   = g('f13_child','○학년 ○반 ○○○');
+    const career  = g('f13_career','');
+    const opinion = g('f13_opinion','');
+    const date    = g('f13_date',`${year}년 3월 ○일`);
+
+    html = docWrap('학부모위원 입후보자 등록서', `
+<div style="text-align:center;font-weight:700;font-size:1.05rem;margin:10px 0 20px;">학부모위원 입후보자 등록서</div>
+${tableStyle([
+  ['성  명', name],
+  ['주  소', addr],
+  ['휴대전화', phone],
+  ['자녀 학년·반·성명', child],
+])}
+
+<div style="margin:14px 0;font-weight:700;color:#4a2070;">□ 자격확인 및 약속</div>
+<div style="border:1px solid #ccc;border-radius:8px;padding:12px 16px;font-size:0.87rem;">
+  ${['① 본인은 국가공무원법 제33조에서 규정하는 결격사유에 해당되지 않습니다. ☑ 예 ☐ 아니요',
+     '② 본인은 다른 학교의 운영위원을 겸하지 않습니다. ☑ 예 ☐ 아니요',
+     '③ 본인은 지위를 남용하여 학교와 영리를 목적으로 거래를 하거나 알선을 하지 않겠습니다. ☑ 예 ☐ 아니요',
+     '④ 본인은 학교운영위원회의 기능과 운영위원의 역할에 대해 확인하였습니다. ☑ 예 ☐ 아니요'
+  ].map(s=>`<div style="margin-bottom:6px;">${s}</div>`).join('')}
+</div>
+
+<div style="margin-top:14px;font-weight:700;color:#4a2070;">□ 경  력</div>
+<div style="border:1px solid #ccc;min-height:50px;padding:10px 14px;border-radius:6px;font-size:0.87rem;color:#333;">${career || '(운영위원 경력 등 기재)'}</div>
+
+<div style="margin-top:14px;font-weight:700;color:#4a2070;">□ 입후보 소견</div>
+<div style="border:1px solid #ccc;min-height:80px;padding:10px 14px;border-radius:6px;font-size:0.87rem;color:#333;">${opinion || '(자유롭게 기재 — 가정통신문 공보물로 배포됩니다)'}</div>
+
+<div style="margin-top:20px;font-size:0.87rem;color:#555;">
+  ※ 위 입후보 등록서의 「경력」「입후보 소견」은 선거안내 공보물로 작성되어 가정통신문으로 전체 학부모에게 공지됩니다.
+</div>
+<div style="margin-top:16px;text-align:center;line-height:2;">
+  본인은 위 기록이 틀림없음을 확인하며 제${period}기 ${school}운영위원회 학부모위원으로 입후보 등록합니다.<br>
+  <strong>${date}</strong><br><br>
+  ${sig('입후보자', name)}
+</div>
+<div style="margin-top:16px;text-align:right;font-size:0.87rem;">
+  <strong>${school} 학교운영위원회 학부모위원선출관리위원회 위원장 귀하</strong>
+</div>
+    `);
+  }
+
+  /* ─── 당선자공고 ─── */
+  else if (currentForm === 'f31') {
+    const no      = g('f31_no','2026-005');
+    const date    = g('f31_date',`${year}년 3월 ○일`);
+    const rawRows = getTableRows('f31_tbody', 3);
+    const rows    = rawRows.map((r,i)=>`<tr>
+        <td style="border:1px solid #888;padding:7px 10px;text-align:center;">${i+1}</td>
+        <td style="border:1px solid #888;padding:7px 10px;text-align:center;">${r[0]||'○○○'}</td>
+        <td style="border:1px solid #888;padding:7px 10px;text-align:center;">${r[1]||''}</td>
+        <td style="border:1px solid #888;padding:7px 10px;">${r[2]||''}</td>
+      </tr>`).join('');
+
+    html = docWrap('학부모위원 당선자 공고', `
+<div style="text-align:right;font-size:0.82rem;color:#555;">공고 제${no}호</div>
+<div style="text-align:center;font-weight:700;font-size:1.05rem;margin:10px 0 18px;">학 부 모 위 원 당 선 자 공 고</div>
+<div style="margin-bottom:16px;">
+  학교운영위원회규정 제○조 제○항에 의하여 <strong>${date}</strong> 학부모위원 선거에서 다음과 같이 학부모위원이 선출되었음을 공고합니다.
+</div>
+<table style="width:100%;border-collapse:collapse;text-align:center;font-size:0.88rem;">
+  <thead>
+    <tr style="background:#ede8f8;">
+      <th style="border:1px solid #888;padding:8px;">연번</th>
+      <th style="border:1px solid #888;padding:8px;">성 명</th>
+      <th style="border:1px solid #888;padding:8px;">성별</th>
+      <th style="border:1px solid #888;padding:8px;">비 고(입후보 소견 등)</th>
+    </tr>
+  </thead>
+  <tbody>${rows}</tbody>
+</table>
+<div style="text-align:center;margin-top:28px;">
+  <strong>${date}</strong><br><br>
+  <strong>${school} 학교운영위원회 학부모위원선출관리위원회 위원장</strong> ${stamp('')}
+</div>
+    `);
+  }
+
+  /* ─── 별지32 ─── */
+  else if (currentForm === 'f32') {
+    const name    = g('f32_name','○○○');
+    const type    = g('f32_type','학부모위원');
+    const startyr = g('f32_startyr', year.slice(-2));
+    const endyr   = String(parseInt(startyr)+1);
+    const date    = g('f32_date',`${year}년 3월 ○일`);
+
+    html = docWrap('당선통지서', `
+<div style="text-align:center;font-size:1.3rem;font-weight:700;letter-spacing:4px;margin:20px 0 30px;">당  선  통  지  서</div>
+<div style="text-align:center;font-size:1.05rem;margin-bottom:30px;">
+  성 명 : <strong>${name}</strong>
+</div>
+<div style="text-align:center;background:#f8f4ff;border:1px solid #c8a8e8;border-radius:12px;padding:24px 20px;font-size:0.95rem;line-height:2.2;">
+  귀하께서는 <strong>${school}운영위원회 제${period}기 ${type}</strong>으로<br>
+  선출되었음을 통지합니다.<br><br>
+  □ 임기: <strong>20${startyr}. 4. 1. ~ 20${endyr}. 3. 31.</strong> (1년)
+</div>
+<div style="text-align:center;margin-top:30px;line-height:2.2;">
+  <strong>${date}</strong><br><br>
+  <strong>${school}운영위원회 학부모위원선출관리위원회 위원장</strong> ${stamp('')}
+</div>
+    `);
+  }
+
+  /* ─── 별지35 ─── */
+  else if (currentForm === 'f35') {
+    const name  = g('f35_name','○○○');
+    const type  = g('f35_type','학부모위원');
+    const date  = g('f35_date',`${year}년 4월 1일`);
+
+    html = docWrap('의무 서약서', `
+<div style="text-align:center;font-size:1.3rem;font-weight:700;letter-spacing:4px;margin:20px 0 30px;">서  약  서</div>
+<div style="background:#f8f4ff;border:1px solid #c8a8e8;border-radius:12px;padding:28px 24px;font-size:0.95rem;line-height:2.4;text-align:center;">
+  본인은 <strong>${year}학년도 ${school} 운영위원</strong>으로서<br>
+  「경기도립 학교운영위원회 설치·운영 조례」 제5조(위원의 겸임) 및<br>
+  제6조(위원의 의무 등)에 의거<br>
+  <strong>${school}</strong> 이외의 학교에서 운영위원으로 활동하지 않으며,<br>
+  <strong>${school}</strong>와는 일체의 영리행위를 하지 않을 것을 서약합니다.
+</div>
+<div style="text-align:center;margin-top:30px;line-height:2.4;">
+  <strong>${date}</strong><br><br>
+  ${school} ${type} &nbsp;&nbsp; ${sig('', name)}
+</div>
+    `);
+  }
+
+  /* ─── 회의개최공고 ─── */
+  else if (currentForm === 'f74') {
+    const type    = g('f74_type','정기회');
+    const round   = g('f74_round','1');
+    const date    = g('f74_date',`${year}년 4월 ○일(○) 11:00`);
+    const place   = g('f74_place','본교 운영위원회 회의실');
+    const pubdate = g('f74_pubdate',`${year}년 ○월 ○일`);
+    const agRows  = getTableRows('f74_tbody', 2);
+    const agList  = agRows.filter(r=>r[1]).map(r=>`<li style="margin-bottom:4px;">- ${r[0]} ${r[1]}</li>`).join('') ||
+                    '<li>- (안건을 입력하세요)</li>';
+
+    html = docWrap(`제${round}회 ${school}운영위원회(${type}) 개최공고`, `
+<div style="text-align:center;font-weight:700;font-size:1.05rem;margin:10px 0 18px;">제${round}회 ${school}운영위원회(${type}) 개최공고</div>
+<div style="margin-bottom:16px;">
+  ${school}운영위원회규정 제○조 제○항의 규정에 의거 다음과 같이
+  제${round}회 ${school}운영위원회(${type}) 개최를 공고합니다.
+</div>
+${tableStyle([
+  ['1. 일  시', date],
+  ['2. 장  소', place],
+])}
+<div style="margin-top:12px;font-weight:600;">3. 안  건</div>
+<ul style="margin:6px 0 0 18px;line-height:2;">${agList}</ul>
+<div style="text-align:center;margin-top:28px;">
+  <strong>${pubdate}</strong><br><br>
+  <strong>${school}장</strong> ${stamp('')}
+</div>
+    `);
+  }
+
+  /* ─── 구성결과 안내문 ─── */
+  else if (currentForm === 'f79') {
+    const date = g('f79_date',`${year}년 4월 ○일`);
+
+    function tbodyToRows(tbodyId, chairLabel) {
+      const rows = getTableRows(tbodyId, 3);
+      return rows.filter(r=>r[0]).map((r,idx)=>`<tr>
+        <td style="border:1px solid #888;padding:6px 10px;text-align:center;">${r[0]||'○○○'}</td>
+        <td style="border:1px solid #888;padding:6px 10px;text-align:center;">${r[1]||''}</td>
+        <td style="border:1px solid #888;padding:6px 10px;text-align:center;">${idx===0&&chairLabel?chairLabel:r[2]||''}</td>
+      </tr>`).join('') || '<tr><td colspan="3" style="border:1px solid #888;padding:6px;text-align:center;color:#aaa;">-</td></tr>';
+    }
+    function memberTable(label, tbodyId, chairLabel) {
+      return `<div style="margin-top:14px;font-weight:700;">${label}</div>
+      <table style="width:100%;border-collapse:collapse;text-align:center;font-size:0.88rem;">
+        <thead><tr style="background:#ede8f8;">
+          <th style="border:1px solid #888;padding:7px;">성 명</th>
+          <th style="border:1px solid #888;padding:7px;">성 별</th>
+          <th style="border:1px solid #888;padding:7px;">비 고</th>
+        </tr></thead>
+        <tbody>${tbodyToRows(tbodyId, chairLabel)}</tbody>
+      </table>`;
+    }
+
+    html = docWrap('학교운영위원회 구성 결과 안내문', `
+<div style="text-align:center;font-size:1.15rem;font-weight:700;margin:10px 0 6px;">학 부 모 님 께 !</div>
+<div style="background:#fdf8ff;border:1px dashed #c8a8e8;border-radius:10px;padding:16px 18px;margin:14px 0;font-size:0.9rem;line-height:1.9;">
+  새로운 학기가 시작된지도 벌써 한 달이 지났습니다. 그동안 학부모님 댁내 평안하신지요.<br>
+  학부모님들의 적극적인 참여로 선출된 학부모위원과 교원위원이 지역위원을 선출하고
+  제${period}기 학교운영위원회를 구성하였습니다. 운영위원회 구성현황을 아래와 같이 안내해 드리니
+  앞으로도 자녀 교육에 많은 관심과 성원을 보내주실 것을 기대합니다.
+</div>
+<div style="font-weight:700;color:#4a2070;margin-top:18px;">□ 학교운영위원 명단</div>
+${memberTable('▸ 학부모위원', 'f79_parent_tbody', '위원장')}
+${memberTable('▸ 교원위원', 'f79_teacher_tbody', '')}
+${memberTable('▸ 지역위원', 'f79_local_tbody', '')}
+<div style="text-align:center;margin-top:28px;">
+  <strong>${date}</strong><br><br>
+  <strong>${school}장</strong> ${stamp('')}
+</div>
+    `);
+  }
+
+  /* ─── 회의록 ─── */
+  else if (currentForm === 'f75') {
+    const type    = g('f75_type','정기회');
+    const round   = g('f75_round','1');
+    const date    = g('f75_date',`${year}년 4월 ○일(○) 11:00`);
+    const place   = g('f75_place','본교 운영위원회 회의실');
+    const total75 = g('f75_total', total);
+    const attend  = g('f75_attend','○');
+    const agRows  = getTableRows('f75_tbody', 4);
+    const agSection = agRows.filter(r=>r[1]).map(r=>`
+      <div style="margin:14px 0;page-break-inside:avoid;">
+        <div style="font-weight:700;margin-bottom:6px;font-size:0.95rem;">■ ${r[0]} ${r[1]}</div>
+        <div style="padding:10px 16px;border-left:3px solid #c8a8e8;background:#fdf8ff;border-radius:0 8px 8px 0;font-size:0.88rem;line-height:1.85;">
+          ${r[2] || '○ 제안 설명:<br>○ 질의 응답:'}
+          <div style="margin-top:8px;font-weight:700;">→ 심의 결과: ${r[3]||'원안 가결'}</div>
+        </div>
+      </div>`).join('') || '<div style="color:#aaa;padding:8px;">(안건을 입력하세요)</div>';
+
+    html = docWrap(`제${round}회 ${school}운영위원회 ${type} 회의록`, `
+<div style="text-align:center;font-weight:700;font-size:1.1rem;margin:8px 0 18px;">회 의 록</div>
+${tableStyle([
+  ['간  사', secretary],
+  ['위원장', chairman],
+  ['학교장', principal],
+  ['회의 일시', date],
+  ['회의 장소', place],
+  ['재적위원', `${total75}명`],
+  ['출석위원', `${attend}명`],
+])}
+<div style="margin:16px 0;font-weight:700;color:#4a2070;">□ 의사 일정</div>
+${agRows.filter(r=>r[1]).map((r,i)=>`<div style="padding:3px 8px;">${i+1}. ${r[0]} ${r[1]}</div>`).join('') || '<div style="color:#aaa;padding:6px;">(안건을 입력하세요)</div>'}
+<div style="background:#fdf8ff;border:1px dashed #c8a8e8;border-radius:8px;padding:12px 16px;margin:14px 0;font-size:0.87rem;color:#555;">
+  ○ 개회 선언: 재적위원 ${total75}명 중 ${attend}명이 출석하였으므로 의사정족수를 충족하였습니다.<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;지금부터 제${round}회 ${school}운영위원회 ${type}를 개최하겠습니다.
+</div>
+<div style="margin:14px 0;font-weight:700;color:#4a2070;">□ 안건 심의</div>
+${agSection}
+<div style="background:#fdf8ff;border:1px dashed #c8a8e8;border-radius:8px;padding:10px 16px;margin:14px 0;font-size:0.87rem;color:#555;">
+  ○ 산회 선언: 이상으로 모든 안건을 처리하였으므로 산회를 선언합니다.
+</div>
+<div style="margin-top:28px;text-align:right;line-height:2.2;font-size:0.88rem;">
+  ${sig('위원장', chairman)}<br>
+  ${sig('간 사', secretary)}
+</div>
+    `);
+  }
+
+  /* ─── 심의결과 홍보 ─── */
+  else if (currentForm === 'f_result') {
+    const date    = g('fr_date',`${year}년 4월 ○일`);
+    const round   = g('fr_round','1');
+    const pubdate = g('fr_pubdate',`${year}년 4월 ○일`);
+    const resRows = getTableRows('fr_tbody', 5);
+    const resTable = resRows.filter(r=>r[2]).map((r,i)=>`<tr>
+      <td style="border:1px solid #888;padding:7px 10px;text-align:center;">${r[0]||i+1}</td>
+      <td style="border:1px solid #888;padding:7px 10px;">${r[2]||''}</td>
+      <td style="border:1px solid #888;padding:7px 10px;text-align:center;">${r[3]||''}</td>
+      <td style="border:1px solid #888;padding:7px 10px;">${r[4]||''}</td>
+    </tr>`).join('') || `<tr><td colspan="4" style="border:1px solid #888;padding:8px;text-align:center;color:#aaa;">-</td></tr>`;
+
+    html = docWrap(`제${round}회 학교운영위원회 심의결과 공고`, `
+<div style="text-align:center;font-weight:700;font-size:1.05rem;margin:8px 0 18px;">심의결과 공고</div>
+<div style="margin-bottom:16px;font-size:0.9rem;">
+  「초·중등교육법 시행령」 제60조에 의거 <strong>${date}</strong> 개최된
+  제${round}회 ${school}운영위원회 심의결과를 다음과 같이 공고합니다.
+</div>
+<table style="width:100%;border-collapse:collapse;font-size:0.88rem;">
+  <thead><tr style="background:#ede8f8;">
+    <th style="border:1px solid #888;padding:8px;width:50px;">번호</th>
+    <th style="border:1px solid #888;padding:8px;">안 건 명</th>
+    <th style="border:1px solid #888;padding:8px;width:100px;">심의 결과</th>
+    <th style="border:1px solid #888;padding:8px;">심의 내용</th>
+  </tr></thead>
+  <tbody>${resTable}</tbody>
+</table>
+<div style="font-size:0.82rem;color:#666;margin-top:10px;">
+  ※ 심의결과는 심의 종료 후 7일 이내에 학교 홈페이지에 게시합니다.
+</div>
+<div style="text-align:center;margin-top:28px;">
+  <strong>${pubdate}</strong><br><br>
+  <strong>${school} 학교운영위원회 위원장</strong> ${stamp('')}
+</div>
+    `);
+  }
+
+  const box = document.getElementById('outputBox');
+  document.getElementById('docPreview').innerHTML = html;
+  box.classList.add('visible');
+  box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function copyOutputText() {
+  const text = document.getElementById('docPreview').innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    const btns = document.querySelectorAll('.btn-copy');
+    btns[0].textContent = '✅ 복사됨!';
+    setTimeout(() => { btns[0].textContent = '📋 텍스트 복사'; }, 2000);
+  });
+}
+
+function printDoc() {
+  const html = document.getElementById('docPreview').innerHTML;
+  const win  = window.open('', '_blank');
+  win.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8">
+    <style>body{font-family:'Malgun Gothic','맑은 고딕',sans-serif;padding:30px;}</style>
+    </head><body>${html}</body></html>`);
+  win.document.close();
+  win.focus();
+  setTimeout(()=>{ win.print(); }, 400);
+}
+</script>
+</body>
+</html>
